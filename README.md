@@ -1,9 +1,8 @@
-<h1>SonarHearing</h1>
+# SonarHearing
 
-<p>SonarHearing is a spigot plugin which allows you to detect all entities around you with a glowing effect when sneaking</p>
-<p>⚠ Sources are not available right now ⚠</p>
+Sonar Hearing allows you to focus on all sounds, vibrations or other space changes of Minecraft.
 
-<p>Download it on <a href="https://www.spigotmc.org/resources/sonar-hearing-1-9-1-10.22640/">Spigot</a>.</p>
+Basically, this plugin recreate the "Focus Hearing" ability of Last Of Us.
+When a player sneak, it will see all e<i>n</i>t<i>it</i>i<i>...</i> <b><a href="https://github.com/Roytreo28/SonarHearing/wiki">Continue reading on the wiki</a></b>
 
-<p>Follow me on twitter if i've helped you by making this resource :)</p>
-<a href="https://twitter.com/AsynchronousVM" class="twitter-follow-button" data-show-count="false">Follow @AsynchronousVM</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+# ⚠ Source code isn't available right now ⚠
