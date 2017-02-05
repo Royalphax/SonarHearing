@@ -1,6 +1,6 @@
 <h1>SonarHearing</h1>
 
-<p>SonarHearing is a spigot plugin who allows you to detect all entities around you with a glowing effect when sneaking</p>
+<p>SonarHearing is a spigot plugin which allows you to detect all entities around you with a glowing effect when sneaking</p>
 <p>⚠ Sources are not available right now ⚠</p>
 
 <p>Download it on <a href="https://www.spigotmc.org/resources/sonar-hearing-1-9-1-10.22640/">Spigot</a>.</p>
