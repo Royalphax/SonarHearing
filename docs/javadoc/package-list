@@ -1,5 +1,6 @@
 fr.asynchronous.sonarhearing
 fr.asynchronous.sonarhearing.handler
+fr.asynchronous.sonarhearing.stats
 fr.asynchronous.sonarhearing.task
 fr.asynchronous.sonarhearing.util
 fr.asynchronous.sonarhearing.version
