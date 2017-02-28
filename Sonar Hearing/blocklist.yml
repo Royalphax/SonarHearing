@@ -1,0 +1,26 @@
+##########################################################################################
+#                                                                                        #
+# #####    #        #####     #####   #   ##          #       #######  ########  ####### #
+# #    #   #       #     #   ##       #  #            #          #     #            #    #
+# #    #   #       #     #   #        # #             #          #     #            #    #
+# #####    #       #     #   #        ##       ####   #          #      ######      #    #
+# #    #   #       #     #   #        # #             #          #            #     #    #
+# #    #   #       #     #   ##       #  #            #          #            #     #    #
+# #####    ######   #####     #####   #   ##          ######  #######  ########     #    # 
+#                                                                                        #
+##########################################################################################
+#The Block-List is a list of blocks who are not considerated like "solid"
+#So the player can't sneak near these blocks to reveal entities.
+#
+#Note: Add the material of a block you want to put in the list.
+#Useful: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+#Add only "blocks" material. For example, "STICK" is not a block material.
+blockList:
+  - AIR
+  - WEB
+  - LAVA
+  - WATER
+  - GLASS
+  - BARRIER
+  - STAINED_GLASS
+  - STAINED_GLASS_PANE
