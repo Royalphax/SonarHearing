@@ -1,9 +1,9 @@
 name: SonarHearing
-version: 3.4
+version: 3.7
 author: Asynchronous
 description: This plugin allows you to detect entities around you when sneaking. More informations with /sonarhearing command.
 website: http://roytreo28.ddns.net/
-main: fr.asynchronous.sonarhearing.SonarHearingPlugin
+main: fr.roytreo.sonarhearing.core.SonarHearingPlugin
 depend: [GlowAPI]
 soft-depend: [PacketListenerApi]
 commands:
