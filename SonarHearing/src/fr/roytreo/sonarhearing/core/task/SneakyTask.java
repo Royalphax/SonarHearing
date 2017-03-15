@@ -1,4 +1,4 @@
-package fr.asynchronous.sonarhearing.task;
+package fr.roytreo.sonarhearing.core.task;
 
 import java.util.HashMap;
 
@@ -11,9 +11,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
 import org.inventivetalent.glow.GlowAPI;
 
-import fr.asynchronous.sonarhearing.SonarHearingPlugin;
-import fr.asynchronous.sonarhearing.handler.Entities;
-import fr.asynchronous.sonarhearing.util.Utils;
+import fr.roytreo.sonarhearing.core.SonarHearingPlugin;
+import fr.roytreo.sonarhearing.core.handler.Entities;
+import fr.roytreo.sonarhearing.core.util.Utils;
 
 /**
  * @author Roytreo28
@@ -96,8 +96,8 @@ public class SneakyTask extends BukkitRunnable {
 	public void reveal(final Player player) {
 		for (final org.bukkit.entity.Entity entity : player.getNearbyEntities(this.PLUGIN.RADIUS, this.PLUGIN.RADIUS,
 				this.PLUGIN.RADIUS)) {
-			if (fr.asynchronous.sonarhearing.handler.Entities.isRegistered(entity)) {
-				Entities ent = fr.asynchronous.sonarhearing.handler.Entities.getEntity(entity.getType());
+			if (fr.roytreo.sonarhearing.core.handler.Entities.isRegistered(entity)) {
+				Entities ent = fr.roytreo.sonarhearing.core.handler.Entities.getEntity(entity.getType());
 				if (Utils.isReveable(entity)) {
 					if (player.getLocation().distance(entity.getLocation()) <= ent.getRadius()) {
 						if (!GlowAPI.isGlowing(entity, player)) {
@@ -140,7 +140,7 @@ public class SneakyTask extends BukkitRunnable {
 	public void unreveal(final Player player) {
 		for (final org.bukkit.entity.Entity entity : player.getNearbyEntities(this.PLUGIN.RADIUS, this.PLUGIN.RADIUS,
 				this.PLUGIN.RADIUS)) {
-			if (fr.asynchronous.sonarhearing.handler.Entities.isRegistered(entity) && Utils.isReveable(entity)) {
+			if (fr.roytreo.sonarhearing.core.handler.Entities.isRegistered(entity) && Utils.isReveable(entity)) {
 				if (GlowAPI.isGlowing(entity, player)) {
 					if (entity instanceof Player) {
 						GlowAPI.setGlowing(entity, false, player);

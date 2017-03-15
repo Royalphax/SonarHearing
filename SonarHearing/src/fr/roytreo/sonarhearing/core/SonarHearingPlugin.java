@@ -1,4 +1,4 @@
-package fr.asynchronous.sonarhearing;
+package fr.roytreo.sonarhearing.core;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,12 +24,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.inventivetalent.glow.GlowAPI;
 import org.inventivetalent.glow.GlowAPI.Color;
 
-import fr.asynchronous.sonarhearing.handler.Entities;
-import fr.asynchronous.sonarhearing.handler.URLManager;
-import fr.asynchronous.sonarhearing.stats.DataRegister;
-import fr.asynchronous.sonarhearing.task.SneakyTask;
-import fr.asynchronous.sonarhearing.util.Utils;
-import fr.asynchronous.sonarhearing.version.INMS;
+import fr.roytreo.sonarhearing.core.handler.Entities;
+import fr.roytreo.sonarhearing.core.handler.URLManager;
+import fr.roytreo.sonarhearing.core.stat.DataRegister;
+import fr.roytreo.sonarhearing.core.task.SneakyTask;
+import fr.roytreo.sonarhearing.core.util.Utils;
+import fr.roytreo.sonarhearing.core.version.INMS;
 
 /**
  * @author Roytreo28
@@ -148,7 +148,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 			}
 		}
 		
-		this.RADIUS = fr.asynchronous.sonarhearing.handler.Entities.getMaxRadius() + 5.0D;
+		this.RADIUS = fr.roytreo.sonarhearing.core.handler.Entities.getMaxRadius() + 5.0D;
 		this.getServer().getPluginManager().registerEvents(this, this);
 		
 		new BukkitRunnable()
@@ -379,16 +379,16 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 		}
 		switch (version) {
 		case "v1_9_R1":
-			INMS = new fr.asynchronous.v1_9_R1.NMS();
+			INMS = new fr.roytreo.sonarhearing.v1_9_R1.NMS();
 			break;
 		case "v1_9_R2":
-			INMS = new fr.asynchronous.v1_9_R2.NMS();
+			INMS = new fr.roytreo.sonarhearing.v1_9_R2.NMS();
 			break;
 		case "v1_10_R1":
-			INMS = new fr.asynchronous.v1_10_R1.NMS();
+			INMS = new fr.roytreo.sonarhearing.v1_10_R1.NMS();
 			break;
 		case "v1_11_R1":
-			INMS = new fr.asynchronous.v1_11_R1.NMS();
+			INMS = new fr.roytreo.sonarhearing.v1_11_R1.NMS();
 			break;
 		}
 		return true;

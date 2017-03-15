@@ -1,4 +1,4 @@
-package fr.asynchronous.sonarhearing.version;
+package fr.roytreo.sonarhearing.core.version;
 
 import org.bukkit.entity.Player;
 

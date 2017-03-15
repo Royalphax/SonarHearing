@@ -1,9 +1,9 @@
-package fr.asynchronous.v1_9_R1;
+package fr.roytreo.sonarhearing.v1_9_R1;
 
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import fr.asynchronous.sonarhearing.version.INMS;
+import fr.roytreo.sonarhearing.core.version.INMS;
 import net.minecraft.server.v1_9_R1.PacketPlayOutWorldBorder;
 import net.minecraft.server.v1_9_R1.WorldBorder;
 

@@ -1,4 +1,4 @@
-package fr.asynchronous.sonarhearing.util;
+package fr.roytreo.sonarhearing.core.util;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import fr.asynchronous.sonarhearing.SonarHearingPlugin;
+import fr.roytreo.sonarhearing.core.SonarHearingPlugin;
 
 /**
  * @author Roytreo28
