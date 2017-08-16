@@ -55,3 +55,6 @@ local.properties
 .recommenders/
 
 # End of https://www.gitignore.io/api/eclipse
+
+# Personal classes
+src/fr/roytreo/sonarhearing/core/stat/
