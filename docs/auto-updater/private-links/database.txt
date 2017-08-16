@@ -1,1 +1,0 @@
-http://%BASE_URL%/home/core/database.txt
