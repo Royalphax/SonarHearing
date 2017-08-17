@@ -3,6 +3,7 @@ package fr.roytreo.sonarhearing.v1_12_R1;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import fr.roytreo.sonarhearing.core.util.ReflectionUtils;
 import fr.roytreo.sonarhearing.core.version.INMS;
 import net.minecraft.server.v1_12_R1.PacketPlayOutWorldBorder;
 import net.minecraft.server.v1_12_R1.WorldBorder;
@@ -18,14 +19,40 @@ public class NMS implements INMS {
 			WorldBorder w = new WorldBorder();
 			w.setSize(1.0D);
 			w.setCenter(player.getLocation().getX() + 10000.0D, player.getLocation().getZ() + 10000.0D);
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(
-					new PacketPlayOutWorldBorder(w, PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE));
+			PacketPlayOutWorldBorder packet = new PacketPlayOutWorldBorder();
+			try {
+				ReflectionUtils.setValue(packet, true, "a", PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE);
+				ReflectionUtils.setValue(packet, true, "c", w.getCenterX());
+				ReflectionUtils.setValue(packet, true, "d", w.getCenterZ());
+				ReflectionUtils.setValue(packet, true, "f", w.getSize());
+				ReflectionUtils.setValue(packet, true, "e", w.j());
+				ReflectionUtils.setValue(packet, true, "g", w.i());
+				ReflectionUtils.setValue(packet, true, "b", w.l());
+				ReflectionUtils.setValue(packet, true, "i", w.getWarningDistance());
+				ReflectionUtils.setValue(packet, true, "h", w.getWarningTime());
+				((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+			} catch (IllegalAccessException | NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
 		} else {
-			WorldBorder ww = new WorldBorder();
-			ww.setSize(3.0E7D);
-			ww.setCenter(player.getLocation().getX(), player.getLocation().getZ());
-			((CraftPlayer) player).getHandle().playerConnection.sendPacket(
-					new PacketPlayOutWorldBorder(ww, PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE));
+			WorldBorder w = new WorldBorder();
+			w.setSize(3.0E7D);
+			w.setCenter(player.getLocation().getX(), player.getLocation().getZ());
+			PacketPlayOutWorldBorder packet = new PacketPlayOutWorldBorder();
+			try {
+				ReflectionUtils.setValue(packet, true, "a", PacketPlayOutWorldBorder.EnumWorldBorderAction.INITIALIZE);
+				ReflectionUtils.setValue(packet, true, "c", w.getCenterX());
+				ReflectionUtils.setValue(packet, true, "d", w.getCenterZ());
+				ReflectionUtils.setValue(packet, true, "f", w.getSize());
+				ReflectionUtils.setValue(packet, true, "e", w.j());
+				ReflectionUtils.setValue(packet, true, "g", w.i());
+				ReflectionUtils.setValue(packet, true, "b", w.l());
+				ReflectionUtils.setValue(packet, true, "i", w.getWarningDistance());
+				ReflectionUtils.setValue(packet, true, "h", w.getWarningTime());
+				((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+			} catch (IllegalAccessException | NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
