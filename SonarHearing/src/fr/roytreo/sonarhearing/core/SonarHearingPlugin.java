@@ -40,7 +40,6 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 	public Server SERVER;
 	public Double RADIUS;
 	public Boolean UPDATE;
-	public SonarHearingPlugin INSTANCE;
 	public Boolean RED_ALERT;
 	public Boolean HEARTBEAT;
 	public Boolean TAMED_MOB;
@@ -65,7 +64,6 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 	@Override
 	public void onEnable() {
 		this.SERVER = getServer();
-		this.INSTANCE = this;
 		this.UPDATE = false;
 		this.LOCAL_HOST = false;
 		this.playerTask = new HashMap<>();
@@ -83,7 +81,6 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 		this.DELAY = getConfig().getInt("delay");
 		this.FREEZE = getConfig().getBoolean("freeze");
 		
-		this.getLogger().info("Tamed mob section in config isn't working as expected at the moment, be patient. :)");
 		this.TAMED_MOB = getConfig().getBoolean("tamed-mob.force-color");
 		try {
 			this.TAMED_MOB_COLOR = Color.valueOf(getConfig().getString("tamed-mob.color"));
@@ -188,6 +185,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 
 	@EventHandler
 	public void onSneak(final PlayerToggleSneakEvent event) {
+		final SonarHearingPlugin instance = this;
 		final Player player = event.getPlayer();
 		if (event.isSneaking() && Utils.isAgainstBlocks(player) && player.hasPermission("sonar.hearing.use") && !disablePlayersAbility.contains(player.getName())) {
 			new BukkitRunnable()
@@ -204,11 +202,11 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 						this.cancel();
 						if (playerTask.containsKey(player))
 							playerTask.get(player).cancel();
-						SneakyTask task = new SneakyTask(INSTANCE, player);
+						SneakyTask task = new SneakyTask(instance, player);
 						playerTask.put(player, task);
 					}
 				}
-			}.runTaskTimer(INSTANCE, 0, 0);
+			}.runTaskTimer(this, 0, 0);
 		}
 	}
 	
