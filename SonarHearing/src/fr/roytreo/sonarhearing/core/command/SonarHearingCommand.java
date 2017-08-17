@@ -47,6 +47,7 @@ public class SonarHearingCommand implements CommandExecutor {
 						if (this.plugin.disablePlayersAbility.contains(player.getName())) 
 							this.plugin.disablePlayersAbility.remove(player.getName());
 						player.sendMessage("§7Your sonar hearing ability is now §aenable§7.");
+						return true;
 					} else if (args[0].equalsIgnoreCase("off")) {
 						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
 							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
@@ -55,37 +56,47 @@ public class SonarHearingCommand implements CommandExecutor {
 						if (!this.plugin.disablePlayersAbility.contains(player.getName())) 
 							this.plugin.disablePlayersAbility.add(player.getName());
 						player.sendMessage("§7Your sonar hearing ability is now §cdisable§7.");
-					} else if (args[0].equalsIgnoreCase("update")) {
-						if (!player.isOp()) {
-							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
-							return true;
-						}
-						if (this.plugin.UPDATE) {
-							sender.sendMessage(ChatColor.AQUA + "Stay informed about what the update bring new at https://www.spigotmc.org/resources/sonar-hearing-1-9-1-10-1-11.22640/updates");
-							sender.sendMessage(ChatColor.GOLD + "The updating task will start in 10 seconds, then your server will shutdown to complete the updating process.");
-							new BukkitRunnable()
+						return true;
+					}
+					sender.sendMessage(ChatColor.RED + "Invalid command, try /sh.");
+					return true;
+				} 
+				if (args[0].equalsIgnoreCase("update")) {
+					if (!sender.isOp()) {
+						sender.sendMessage(ChatColor.RED + "You are not allowed to do that.");
+						return true;
+					}
+					if (this.plugin.UPDATE) {
+						sender.sendMessage(ChatColor.AQUA + "Stay informed about what the update bring new at https://www.spigotmc.org/resources/sonar-hearing-1-9-1-10-1-11.22640/updates");
+						sender.sendMessage(ChatColor.GOLD + "The updating task will start in 10 seconds, then your server will shutdown to complete the updating process.");
+						new BukkitRunnable()
+						{
+							public void run()
 							{
-								public void run()
-								{
-									if (URLManager.update(plugin, URLManager.getLatestVersion(), false, URLManager.Link.GITHUB_PATH))
-										new BukkitRunnable()
+								if (URLManager.update(plugin, URLManager.getLatestVersion(), false, URLManager.Link.GITHUB_PATH))
+									new BukkitRunnable()
+									{
+										public void run()
 										{
-											public void run()
-											{
-												plugin.deletePluginsJar();
-												Bukkit.getServer().shutdown();
-											}
-										}.runTaskLater(plugin, 100);
-								}
-							}.runTaskLater(this.plugin, 20*10);
-						} else {
-							sender.sendMessage(ChatColor.RED + "SonarHearing is already up-to-date.");
-						}
+											plugin.deletePluginsJar();
+											Bukkit.getServer().shutdown();
+										}
+									}.runTaskLater(plugin, 100);
+							}
+						}.runTaskLater(this.plugin, 20*10);
+					} else {
+						sender.sendMessage(ChatColor.RED + "SonarHearing is already up-to-date.");
 					}
 					return true;
 				}
+				sender.sendMessage(ChatColor.RED + "Invalid command, try /sh.");
+				return true;
 			} else if (args.length == 2) 
 			{
+				if (!args[0].equalsIgnoreCase("on") && !args[0].equalsIgnoreCase("off") && !args[0].equalsIgnoreCase("debug")) {
+					sender.sendMessage(ChatColor.RED + "Invalid command, try /sh.");
+					return true;
+				}
 				String playerArg = args[1];
 				if (Bukkit.getPlayer(playerArg) != null)
 				{
@@ -98,6 +109,7 @@ public class SonarHearingCommand implements CommandExecutor {
 						if (this.plugin.disablePlayersAbility.contains(bukkitPlayer.getName())) 
 							this.plugin.disablePlayersAbility.remove(bukkitPlayer.getName());
 						sender.sendMessage("§7" + bukkitPlayer.getName() + "'s sonar hearing ability is now §aenable§7.");
+						return true;
 					} else if (args[0].equalsIgnoreCase("off")) {
 						if (!sender.hasPermission(SONARHEARING_TOGGLE_OTHER_PERMISSION)) {
 							sender.sendMessage(ChatColor.RED + "You are not allowed to do that.");
@@ -105,6 +117,7 @@ public class SonarHearingCommand implements CommandExecutor {
 						}
 						if (!this.plugin.disablePlayersAbility.contains(bukkitPlayer.getName())) this.plugin.disablePlayersAbility.add(bukkitPlayer.getName());
 						sender.sendMessage("§7" + bukkitPlayer.getName() + "'s sonar hearing ability is now §cdisable§7.");
+						return true;
 					} else if (args[0].equalsIgnoreCase("debug")) {
 						if (!sender.isOp() || this.plugin.debuggers.contains(sender) || !(sender instanceof Player)) {
 							sender.sendMessage(ChatColor.RED + "You are not allowed to do that." + (!sender.isOp() ? " (Not an Operator)" : "") + (this.plugin.debuggers.contains(sender) ? " (You can't use the debug service twice at the same time)" : "") + (!(sender instanceof Player) ? " (You're not a player)" : ""));
@@ -178,7 +191,8 @@ public class SonarHearingCommand implements CommandExecutor {
 									plugin.debuggers.remove(sender);
 								}
 							}
-						}.runTaskTimer(this.plugin, 20*3, 1);
+						}.runTaskTimer(this.plugin, 60, 1);
+						return true;
 					}
 				} else {
 					sender.sendMessage(ChatColor.RED + "This player isn't online.");
@@ -196,9 +210,9 @@ public class SonarHearingCommand implements CommandExecutor {
         }
         sender.sendMessage("");
         if (sender.hasPermission(SONARHEARING_TOGGLE_OTHER_PERMISSION) || sender.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
-        	sender.sendMessage(String.valueOf(ChatColor.GREEN.toString()) + ChatColor.UNDERLINE + "Commands");
+        	sender.sendMessage(String.valueOf(ChatColor.GREEN.toString()) + ChatColor.UNDERLINE + "Commands :");
         	sender.sendMessage("");
-        	if (sender.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
+        	if (sender.hasPermission(SONARHEARING_TOGGLE_PERMISSION) && sender instanceof Player) {
         		sender.sendMessage(ChatColor.WHITE + "/sh on " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "enable your sonar hearing ability");
         		sender.sendMessage(ChatColor.WHITE + "/sh off " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "disable your sonar hearing ability");
         	}
@@ -206,11 +220,13 @@ public class SonarHearingCommand implements CommandExecutor {
         		sender.sendMessage(ChatColor.WHITE + "/sh on <player> " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "enable player's sonar hearing ability");
         		sender.sendMessage(ChatColor.WHITE + "/sh off <player> " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "disable player's sonar hearing ability");
         	}
+        	if (sender.isOp())
+        		sender.sendMessage(ChatColor.RED + "/sh update " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "update the plugin automatically");
         	sender.sendMessage("");
         }
         sender.sendMessage(String.valueOf(ChatColor.GREEN.toString()) + ChatColor.UNDERLINE + "Special thanks to :");
         sender.sendMessage("");
-        sender.sendMessage(ChatColor.WHITE + "    - SQRTdude for the concept");
+        sender.sendMessage(ChatColor.WHITE + "    - SQRTdude for this concept");
         sender.sendMessage(ChatColor.WHITE + "    - Asynchronous the developer");
         sender.sendMessage("");
         sender.sendMessage("§a§l§m=============================================");
