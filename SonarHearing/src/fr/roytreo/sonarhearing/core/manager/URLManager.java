@@ -1,4 +1,4 @@
-package fr.roytreo.sonarhearing.core.handler;
+package fr.roytreo.sonarhearing.core.manager;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;

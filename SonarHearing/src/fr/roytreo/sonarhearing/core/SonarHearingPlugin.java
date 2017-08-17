@@ -22,7 +22,8 @@ import org.inventivetalent.glow.GlowAPI.Color;
 
 import fr.roytreo.sonarhearing.core.command.SonarHearingCommand;
 import fr.roytreo.sonarhearing.core.handler.Entities;
-import fr.roytreo.sonarhearing.core.handler.URLManager;
+import fr.roytreo.sonarhearing.core.manager.ExceptionManager;
+import fr.roytreo.sonarhearing.core.manager.URLManager;
 import fr.roytreo.sonarhearing.core.stat.DataRegister;
 import fr.roytreo.sonarhearing.core.task.SneakyTask;
 import fr.roytreo.sonarhearing.core.util.Utils;
@@ -141,7 +142,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 					try {
 						entitiesConfig.save(entitiesFile);
 					} catch (IOException e) {
-						getLogger().warning("CAN'T SAVE ENTITIES.YML, WHAT THE F*CK ? | ERROR: " + e.getMessage());
+						new ExceptionManager(e).register(this, true);
 					}
 				}
 				if (color == null) 
@@ -181,7 +182,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 		try {
 			disablePlayersConfig.save(disablePlayers);
 		} catch (IOException e) {
-			e.printStackTrace();
+			new ExceptionManager(e).register(this, true);
 		}
 	}
 
@@ -238,7 +239,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 		return true;
 	}
 	
-	public void deletePluginJar() {
+	public void deletePluginsJar() {
 		if (!getFile().delete())
 			getFile().deleteOnExit();
 	}

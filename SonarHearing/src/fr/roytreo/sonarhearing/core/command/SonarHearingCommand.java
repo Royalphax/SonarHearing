@@ -10,7 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.inventivetalent.glow.GlowAPI;
 
 import fr.roytreo.sonarhearing.core.SonarHearingPlugin;
-import fr.roytreo.sonarhearing.core.handler.URLManager;
+import fr.roytreo.sonarhearing.core.manager.URLManager;
 import fr.roytreo.sonarhearing.core.util.Utils;
 
 /**
@@ -19,6 +19,8 @@ import fr.roytreo.sonarhearing.core.util.Utils;
 public class SonarHearingCommand implements CommandExecutor {
 	
 	private SonarHearingPlugin plugin;
+	private final String SONARHEARING_TOGGLE_PERMISSION = "sonar.hearing.toggle";
+	private final String SONARHEARING_TOGGLE_OTHER_PERMISSION = "sonar.hearing.toggle.other";
 	
 	public SonarHearingCommand(SonarHearingPlugin plugin) {
 		this.plugin = plugin;
@@ -38,7 +40,7 @@ public class SonarHearingCommand implements CommandExecutor {
 				if (sender instanceof Player) {
 					Player player = (Player) sender;
 					if (args[0].equalsIgnoreCase("on")) {
-						if (!player.hasPermission("sonar.hearing.toggle")) {
+						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
 							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
 							return true;
 						}
@@ -46,7 +48,7 @@ public class SonarHearingCommand implements CommandExecutor {
 							this.plugin.disablePlayersAbility.remove(player.getName());
 						player.sendMessage("§7Your sonar hearing ability is now §aenable§7.");
 					} else if (args[0].equalsIgnoreCase("off")) {
-						if (!player.hasPermission("sonar.hearing.toggle")) {
+						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
 							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
 							return true;
 						}
@@ -54,8 +56,12 @@ public class SonarHearingCommand implements CommandExecutor {
 							this.plugin.disablePlayersAbility.add(player.getName());
 						player.sendMessage("§7Your sonar hearing ability is now §cdisable§7.");
 					} else if (args[0].equalsIgnoreCase("update")) {
+						if (!player.isOp()) {
+							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
+							return true;
+						}
 						if (this.plugin.UPDATE) {
-							sender.sendMessage(ChatColor.AQUA + "Stay informed about what the update bring new at ");
+							sender.sendMessage(ChatColor.AQUA + "Stay informed about what the update bring new at https://www.spigotmc.org/resources/sonar-hearing-1-9-1-10-1-11.22640/updates");
 							sender.sendMessage(ChatColor.GOLD + "The updating task will start in 10 seconds, then your server will shutdown to complete the updating process.");
 							new BukkitRunnable()
 							{
@@ -66,14 +72,14 @@ public class SonarHearingCommand implements CommandExecutor {
 										{
 											public void run()
 											{
-												plugin.deletePluginJar();
+												plugin.deletePluginsJar();
 												Bukkit.getServer().shutdown();
 											}
 										}.runTaskLater(plugin, 100);
 								}
 							}.runTaskLater(this.plugin, 20*10);
 						} else {
-							sender.sendMessage(ChatColor.RED + "Revenge is already up to date.");
+							sender.sendMessage(ChatColor.RED + "SonarHearing is already up-to-date.");
 						}
 					}
 					return true;
@@ -85,7 +91,7 @@ public class SonarHearingCommand implements CommandExecutor {
 				{
 					final Player bukkitPlayer = Bukkit.getPlayer(playerArg);
 					if (args[0].equalsIgnoreCase("on")) {
-						if (!sender.hasPermission("sonar.hearing.toggle.other")) {
+						if (!sender.hasPermission(SONARHEARING_TOGGLE_OTHER_PERMISSION)) {
 							sender.sendMessage(ChatColor.RED + "You are not allowed to do that.");
 							return true;
 						}
@@ -93,7 +99,7 @@ public class SonarHearingCommand implements CommandExecutor {
 							this.plugin.disablePlayersAbility.remove(bukkitPlayer.getName());
 						sender.sendMessage("§7" + bukkitPlayer.getName() + "'s sonar hearing ability is now §aenable§7.");
 					} else if (args[0].equalsIgnoreCase("off")) {
-						if (!sender.hasPermission("sonar.hearing.toggle.other")) {
+						if (!sender.hasPermission(SONARHEARING_TOGGLE_OTHER_PERMISSION)) {
 							sender.sendMessage(ChatColor.RED + "You are not allowed to do that.");
 							return true;
 						}
@@ -174,13 +180,40 @@ public class SonarHearingCommand implements CommandExecutor {
 							}
 						}.runTaskTimer(this.plugin, 20*3, 1);
 					}
-					return true;
 				} else {
 					sender.sendMessage(ChatColor.RED + "This player isn't online.");
+					return true;
 				}
 			}
 			sender.sendMessage(ChatColor.RED + "Invalid command, try /sh.");
+			return true;
 		}
-		return false;
+		sender.sendMessage("§a§l§m=============================================");
+        sender.sendMessage("");
+        sender.sendMessage(ChatColor.GRAY + "Sonar hearing is a light weight plugin which allows you to detect entities around you when sneaking. This plugin is perfect for DayZ/LastOfUs/ZombieMania servers.");
+        if (sender.isOp()) {
+            sender.sendMessage(ChatColor.GRAY + "It seems that your are an Administrator of the server, so you can edit the file configuration of the plugin to suit your needs about mobs detection radius, blocks list, etcetera.");
+        }
+        sender.sendMessage("");
+        if (sender.hasPermission(SONARHEARING_TOGGLE_OTHER_PERMISSION) || sender.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
+        	sender.sendMessage(String.valueOf(ChatColor.GREEN.toString()) + ChatColor.UNDERLINE + "Commands");
+        	sender.sendMessage("");
+        	if (sender.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
+        		sender.sendMessage(ChatColor.WHITE + "/sh on " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "enable your sonar hearing ability");
+        		sender.sendMessage(ChatColor.WHITE + "/sh off " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "disable your sonar hearing ability");
+        	}
+        	if (sender.hasPermission(SONARHEARING_TOGGLE_OTHER_PERMISSION)) {
+        		sender.sendMessage(ChatColor.WHITE + "/sh on <player> " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "enable player's sonar hearing ability");
+        		sender.sendMessage(ChatColor.WHITE + "/sh off <player> " + ChatColor.DARK_GRAY + "- " + ChatColor.GRAY + "disable player's sonar hearing ability");
+        	}
+        	sender.sendMessage("");
+        }
+        sender.sendMessage(String.valueOf(ChatColor.GREEN.toString()) + ChatColor.UNDERLINE + "Special thanks to :");
+        sender.sendMessage("");
+        sender.sendMessage(ChatColor.WHITE + "    - SQRTdude for the concept");
+        sender.sendMessage(ChatColor.WHITE + "    - Asynchronous the developer");
+        sender.sendMessage("");
+        sender.sendMessage("§a§l§m=============================================");
+        return true;
 	}
 }
