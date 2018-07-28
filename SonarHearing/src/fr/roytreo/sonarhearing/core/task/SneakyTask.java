@@ -158,7 +158,13 @@ public class SneakyTask extends BukkitRunnable {
 	}
 
 	public void heartbeat(Player player, Boolean effect) {
-		player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BASEDRUM, 1.0f, 0.0f);
+		Sound sound;
+		if (this.PLUGIN.POST_V13) {
+			sound = Sound.valueOf("BLOCK_NOTE_BLOCK_BASEDRUM");
+		} else {
+			sound = Sound.valueOf("BLOCK_NOTE_BASEDRUM");
+		}
+		player.playSound(player.getLocation(), sound, 1.0f, 0.0f);
 		if (effect) {
 			PotionEffect potionEffect = new PotionEffect(PotionEffectType.SPEED, 10, 0, false, false);
 			player.addPotionEffect(potionEffect);

@@ -43,6 +43,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 	public Boolean RED_ALERT;
 	public Boolean HEARTBEAT;
 	public Boolean TAMED_MOB;
+	public Boolean POST_V13;
 	public Integer DELAY;
 	public Boolean FREEZE;
 	public Color TAMED_MOB_COLOR;
@@ -66,6 +67,7 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 		this.SERVER = getServer();
 		this.UPDATE = false;
 		this.LOCAL_HOST = false;
+		this.POST_V13 = false;
 		this.playerTask = new HashMap<>();
 		this.disablePlayersAbility = new ArrayList<>();
 		this.debuggers = new ArrayList<>();
@@ -232,6 +234,10 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 			break;
 		case "v1_12_R1":
 			INMS = new fr.roytreo.sonarhearing.v1_12_R1.NMS();
+			break;
+		case "v1_13_R1":
+			POST_V13 = true;
+			INMS = new fr.roytreo.sonarhearing.v1_13_R1.NMS();
 			break;
 		}
 		return true;
