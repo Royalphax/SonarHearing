@@ -239,7 +239,18 @@ public class SonarHearingPlugin extends JavaPlugin implements Listener {
 			POST_V13 = true;
 			INMS = new fr.roytreo.sonarhearing.v1_13_R1.NMS();
 			break;
+		case "v1_13_R2":
+			POST_V13 = true;
+			INMS = new fr.roytreo.sonarhearing.v1_13_R2.NMS();
+			break;
+		case "v1_14_R1":
+			POST_V13 = true;
+			INMS = new fr.roytreo.sonarhearing.v1_14_R1.NMS();
+			getLogger().warning("Due to not 1.14 compatibility of GlowAPI, SonarHearing can't be used under that version.");
+			getServer().getPluginManager().disablePlugin(this);
+			break;
 		}
+		
 		return true;
 	}
 	

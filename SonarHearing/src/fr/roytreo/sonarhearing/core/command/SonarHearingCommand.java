@@ -37,30 +37,6 @@ public class SonarHearingCommand implements CommandExecutor {
 			}
 			if (args.length == 1)
 			{
-				if (sender instanceof Player) {
-					Player player = (Player) sender;
-					if (args[0].equalsIgnoreCase("on")) {
-						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
-							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
-							return true;
-						}
-						if (this.plugin.disablePlayersAbility.contains(player.getName())) 
-							this.plugin.disablePlayersAbility.remove(player.getName());
-						player.sendMessage("§7Your sonar hearing ability is now §aenable§7.");
-						return true;
-					} else if (args[0].equalsIgnoreCase("off")) {
-						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
-							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
-							return true;
-						}
-						if (!this.plugin.disablePlayersAbility.contains(player.getName())) 
-							this.plugin.disablePlayersAbility.add(player.getName());
-						player.sendMessage("§7Your sonar hearing ability is now §cdisable§7.");
-						return true;
-					}
-					sender.sendMessage(ChatColor.RED + "Invalid command, try /sh.");
-					return true;
-				} 
 				if (args[0].equalsIgnoreCase("update")) {
 					if (!sender.isOp()) {
 						sender.sendMessage(ChatColor.RED + "You are not allowed to do that.");
@@ -89,6 +65,28 @@ public class SonarHearingCommand implements CommandExecutor {
 					}
 					return true;
 				}
+				if (sender instanceof Player) {
+					Player player = (Player) sender;
+					if (args[0].equalsIgnoreCase("on")) {
+						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
+							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
+							return true;
+						}
+						if (this.plugin.disablePlayersAbility.contains(player.getName())) 
+							this.plugin.disablePlayersAbility.remove(player.getName());
+						player.sendMessage("§7Your sonar hearing ability is now §aenable§7.");
+						return true;
+					} else if (args[0].equalsIgnoreCase("off")) {
+						if (!player.hasPermission(SONARHEARING_TOGGLE_PERMISSION)) {
+							player.sendMessage(ChatColor.RED + "You are not allowed to do that.");
+							return true;
+						}
+						if (!this.plugin.disablePlayersAbility.contains(player.getName())) 
+							this.plugin.disablePlayersAbility.add(player.getName());
+						player.sendMessage("§7Your sonar hearing ability is now §cdisable§7.");
+						return true;
+					}
+				} 
 				sender.sendMessage(ChatColor.RED + "Invalid command, try /sh.");
 				return true;
 			} else if (args.length == 2) 
@@ -227,7 +225,7 @@ public class SonarHearingCommand implements CommandExecutor {
         sender.sendMessage(String.valueOf(ChatColor.GREEN.toString()) + ChatColor.UNDERLINE + "Special thanks to :");
         sender.sendMessage("");
         sender.sendMessage(ChatColor.WHITE + "    - SQRTdude for this concept");
-        sender.sendMessage(ChatColor.WHITE + "    - Asynchronous the developer");
+        sender.sendMessage(ChatColor.WHITE + "    - Royalpha the developer");
         sender.sendMessage("");
         sender.sendMessage("§a§l§m=============================================");
         return true;
