@@ -1,5 +1,5 @@
 # Welcome in docs directory
-Here is stored the web part of SonarHearing. To access it, use this link: https://roytreo28.github.io/SonarHearing/
+Here is stored the web part of SonarHearing. To access it, use this link: https://royalphax.github.io/SonarHearing/
 
 ### Folders description
 * `assets/` — Used to store all the website assets like css sheet and web icon.
